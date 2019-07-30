@@ -1,23 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Ingredient } from '../shared/ingredient.model';
+
+import { ShoppingListService } from './Shopping-list.service';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
-  ];
+  ingredients: Ingredient[];
+  destroy$ = new Subject();
 
-  constructor() { }
+  constructor(private slService: ShoppingListService) { }
 
   ngOnInit() {
+    this.getIngredients();
+    this.slService.IngredientsChanged().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((ingredients: Ingredient[]) => (this.ingredients = ingredients));
   }
 
-  onIngredientAdded(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
+
+  private getIngredients() { this.ingredients = this.slService.GetIngredients(); }
+
 }
