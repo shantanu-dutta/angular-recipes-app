@@ -14,8 +14,9 @@ import { ShoppingListService } from './Shopping-list.service';
   styleUrls: ['./shopping-list.component.css'],
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
+  selectedIndex: number;
   ingredients: Ingredient[];
-  destroy$ = new Subject();
 
   constructor(private slService: ShoppingListService) { }
 
@@ -23,7 +24,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.getIngredients();
     this.slService.IngredientsChanged().pipe(
       takeUntil(this.destroy$)
-    ).subscribe((ingredients: Ingredient[]) => (this.ingredients = ingredients));
+    ).subscribe(
+      (ingredients: Ingredient[]) => (this.ingredients = ingredients)
+    );
+    this.slService.GetEditing().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(
+      (index: number) => (this.selectedIndex = index)
+    );
   }
 
   ngOnDestroy() {
@@ -32,5 +40,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   private getIngredients() { this.ingredients = this.slService.GetIngredients(); }
+
+  onEditItem(index: number) {
+    this.slService.SetEditing(index);
+  }
 
 }
