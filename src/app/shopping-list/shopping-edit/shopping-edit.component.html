@@ -1,22 +1,29 @@
 <div class="row">
   <div class="col-sm-12">
-    <form>
+    <form #f="ngForm" (ngSubmit)="onAddItem(f)">
       <div class="form-row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" class="form-control" #nameInput>
+          <input type="text" id="name" class="form-control" aria-describedby="nameHelpText" name="name" ngModel required
+            #name="ngModel">
+          <small id="nameHelpText" class="form-text text-muted" *ngIf="name.touched && name.invalid">This field is required</small>
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
-          <input type="number" id="amount" class="form-control" #amountInput>
+          <input type="number" id="amount" class="form-control" aria-describedby="amountHelpText" name="amount" ngModel required pattern="^[1-9][0-9]*$"
+            #amount="ngModel">
+          <small id="amountHelpText" class="form-text text-muted" *ngIf="amount.touched && amount.invalid">
+            <ng-container *ngIf="amount.errors.required">This field is required</ng-container>
+            <ng-container *ngIf="amount.errors.pattern">Please enter a positive whole number</ng-container>
+          </small>
         </div>
       </div>
       <div class="form-row">
         <div class="col-sm-12">
           <div class="d-flex">
-            <button type="button" class="btn btn-success mr-1" (click)="onAddItem()">Add</button>
-            <button type="button" class="btn btn-danger mr-1">Remove</button>
-            <button type="button" class="btn btn-primary">Clear</button>
+            <button type="submit" class="btn btn-success mr-1" [disabled]="f.invalid">Add</button>
+            <button type="button" class="btn btn-danger mr-1" disabled>Remove</button>
+            <button type="reset" class="btn btn-primary" [disabled]="f.pristine">Clear</button>
           </div>
         </div>
       </div>
