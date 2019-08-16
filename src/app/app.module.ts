@@ -10,12 +10,6 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 import { AppComponent } from './app.component';
 
-import { AuthService } from "./auth/auth.service";
-import { DataStorageService } from './shared/data-storage.service';
-import { ShoppingListService } from './shopping-list/Shopping-list.service';
-import { RecipeService } from './recipes/recipe.service';
-import { AuthGuardService } from './auth/auth-guard.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,13 +22,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
     HttpClientModule,
     ShoppingListModule,
   ],
-  providers: [
-    AuthService,
-    AuthGuardService,
-    DataStorageService,
-    RecipeService,
-    ShoppingListService
-  ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
