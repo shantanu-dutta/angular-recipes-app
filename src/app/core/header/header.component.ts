@@ -18,9 +18,9 @@ import { DataStorageService } from '../../shared/data-storage.service';
   ]
 })
 export class HeaderComponent {
-  collapse: string = 'open';
+  collapse: string = 'closed';
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private dataStorageService: DataStorageService,
     private router: Router
   ) { }

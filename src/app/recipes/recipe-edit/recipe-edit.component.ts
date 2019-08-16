@@ -32,6 +32,8 @@ export class RecipeEditComponent implements OnInit {
       );
   }
 
+  get ingredientsCtrl() { return this.recipeForm.get('ingredients') as FormArray;}
+
   navigateBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
