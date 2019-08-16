@@ -21,6 +21,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { DataStorageService } from './shared/data-storage.service';
 import { ShoppingListService } from './shopping-list/Shopping-list.service';
 import { RecipeService } from './recipes/recipe.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { RecipeService } from './recipes/recipe.service';
     DropdownDirective,
     RecipeEditComponent,
     RecipeStartComponent,
+    SignupComponent,
+    SigninComponent,
   ],
   imports: [
     AppRoutingModule,
