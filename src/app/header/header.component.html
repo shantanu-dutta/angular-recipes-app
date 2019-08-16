@@ -2,7 +2,7 @@
   <a class="navbar-brand" routerLink="/">Recipe Book</a>
 
   <div class="collapse navbar-collapse">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="authService.isAuthenticated()">
       <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/recipes">Recipes</a></li>
       <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/shopping-list">Shopping List</a>
       </li>

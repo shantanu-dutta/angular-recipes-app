@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 import { DataStorageService } from '../shared/data-storage.service';
@@ -10,7 +11,8 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class HeaderComponent {
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private router: Router
   ) { }
 
   onSaveData() {
@@ -26,5 +28,6 @@ export class HeaderComponent {
 
   onLogout() {
     this.authService.logout();
+    this.router.navigate(['/signin']);
   }
 }
