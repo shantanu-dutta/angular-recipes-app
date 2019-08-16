@@ -30,7 +30,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getRecipeById(id: number) {
-    this.recipe = this.recipeService.getRecipe(id);
+    this.recipe = this.recipeService.GetRecipe(id);
   }
 
   onAddToShoppingList() {
