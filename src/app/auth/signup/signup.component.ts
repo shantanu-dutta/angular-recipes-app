@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('f', { static: false }) form: NgForm;
 
   constructor(private authService: AuthService) { }
 
@@ -18,7 +19,10 @@ export class SignupComponent implements OnInit {
   onSignup(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    
     this.authService.signupUser(email, password);
+  }
+
+  Reset() {
+    this.form.reset();
   }
 }
