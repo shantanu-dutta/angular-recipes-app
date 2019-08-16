@@ -1,3 +1,15 @@
-<p>
-  signup works!
-</p>
+<div class="row justify-content-sm-center">
+  <div class="col col-sm-10 col-md-8">
+    <form (ngSubmit)="onSignup()" #f="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" ngModel>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+</div>
