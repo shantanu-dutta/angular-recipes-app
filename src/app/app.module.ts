@@ -12,14 +12,13 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 
-import { DropdownDirective } from './shared/dropdown.directive';
-
 import { AuthService } from "./auth/auth.service";
 import { DataStorageService } from './shared/data-storage.service';
 import { ShoppingListService } from './shopping-list/Shopping-list.service';
 import { RecipeService } from './recipes/recipe.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { RecipesModule } from './recipes/recipes.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { RecipesModule } from './recipes/recipes.module';
     HeaderComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective,
     SignupComponent,
     SigninComponent,
   ],
@@ -37,6 +35,7 @@ import { RecipesModule } from './recipes/recipes.module';
     FormsModule,
     HttpClientModule,
     RecipesModule,
+    SharedModule,
   ],
   providers: [AuthService, AuthGuardService, DataStorageService, RecipeService, ShoppingListService],
   bootstrap: [AppComponent]
