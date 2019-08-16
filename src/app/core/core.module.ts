@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -12,6 +13,8 @@ import { AuthGuardService } from '../auth/auth-guard.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { ShoppingListService } from '../shopping-list/Shopping-list.service';
+
+import { AuthInterceptor } from '../shared/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { ShoppingListService } from '../shopping-list/Shopping-list.service';
     AuthGuardService,
     DataStorageService,
     RecipeService,
-    ShoppingListService
+    ShoppingListService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
   ],
 })
 export class CoreModule { }
