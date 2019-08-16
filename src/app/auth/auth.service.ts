@@ -22,11 +22,20 @@ export class AuthService {
       .catch(console.log);
   }
 
+  logout() {
+    firebase.auth().signOut();
+    this.token = null;
+  }
+
   getToken() {
     firebase.auth().currentUser.getIdToken()
       .then(
         (token: string) => this.token = token
       );
     return this.token;
+  }
+
+  isAuthenticated() {
+    return this.token != null;
   }
 }
