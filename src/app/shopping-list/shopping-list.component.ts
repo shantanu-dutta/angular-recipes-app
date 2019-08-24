@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Ingredient } from '../shared/ingredient.model';
@@ -16,17 +17,17 @@ import { ShoppingListService } from './Shopping-list.service';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   selectedIndex: number;
-  ingredients: Ingredient[];
+  shoppingListState: Observable<{ ingredients: Ingredient[] }>;
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService, private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>) { }
 
   ngOnInit() {
     this.getIngredients();
-    this.slService.IngredientsChanged().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(
-      (ingredients: Ingredient[]) => (this.ingredients = ingredients)
-    );
+    // this.slService.IngredientsChanged().pipe(
+    //   takeUntil(this.destroy$)
+    // ).subscribe(
+    //   (ingredients: Ingredient[]) => (this.ingredients = ingredients)
+    // );
     this.slService.GetEditing().pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -39,7 +40,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private getIngredients() { this.ingredients = this.slService.GetIngredients(); }
+  private getIngredients() { this.shoppingListState = this.store.select('shoppingList') }
 
   onEditItem(index: number) {
     this.slService.SetEditing(index);
