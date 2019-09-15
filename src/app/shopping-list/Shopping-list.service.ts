@@ -35,13 +35,11 @@ export class ShoppingListService {
   }
 
   UpdateIngredient(index: number, newIngredient: Ingredient) {
-    this.ingredients[index] = newIngredient;
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.store.dispatch(ShoppingListActions.updateIngredient({ index, newIngredient }));
   }
 
   DeleteIngredient(index: number) {
-    this.ingredients.splice(index, 1);
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.store.dispatch(ShoppingListActions.deleteIngredient({ index }));
   }
 
   GetEditing(): Observable<number> {
