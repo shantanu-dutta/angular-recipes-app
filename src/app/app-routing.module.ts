@@ -7,16 +7,16 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { HomeComponent } from './core/home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent, },
+  { path: '', component: HomeComponent },
   {
     path: 'recipes',
-    loadChildren: () => import('./recipes/recipes.module').then(mod => mod.RecipesModule),
+    loadChildren: () => import('./recipes/recipes.module').then(mod => mod.RecipesModule)
   },
-  { path: 'shopping-list', component: ShoppingListComponent, canActivate: [AuthGuardService] },
+  { path: 'shopping-list', component: ShoppingListComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -19,13 +19,8 @@ import { RecipesComponent } from './recipes.component';
     RecipeItemComponent,
     RecipeListComponent,
     RecipeStartComponent,
-    RecipesComponent,
+    RecipesComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RecipesRoutingModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RecipesRoutingModule, SharedModule]
 })
-export class RecipesModule { }
+export class RecipesModule {}

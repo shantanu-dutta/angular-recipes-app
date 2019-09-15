@@ -10,13 +10,11 @@ import { Recipe } from '../recipes/recipe.model';
 export class DataStorageService {
   private storeUrl = 'https://ng-recipe-book-e6186.firebaseio.com';
 
-  constructor(
-    private httpClient: HttpClient,
-    private recipeService: RecipeService
-  ) { }
+  constructor(private httpClient: HttpClient, private recipeService: RecipeService) {}
 
   GetRecipes() {
-    this.httpClient.get<Recipe[]>(`${this.storeUrl}/recipes.json`)
+    this.httpClient
+      .get<Recipe[]>(`${this.storeUrl}/recipes.json`)
       .pipe(
         map(recipes => {
           for (const recipe of recipes) {
@@ -27,10 +25,7 @@ export class DataStorageService {
           return recipes;
         })
       )
-      .subscribe(
-        this.recipeService.SetRecipes,
-        console.log
-      );
+      .subscribe(this.recipeService.SetRecipes, console.log);
   }
 
   StoreRecipes() {

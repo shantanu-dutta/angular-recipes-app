@@ -14,13 +14,13 @@ const recipesRoutes: Routes = [
     component: RecipesComponent,
     canActivateChild: [AuthGuardService],
     children: [
-      { path: '', component: RecipeStartComponent, },
-      { path: 'new', component: RecipeEditComponent, },
-      { path: ':id', component: RecipeDetailComponent, },
-      { path: ':id/edit', component: RecipeEditComponent, },
-    ],
+      { path: '', component: RecipeStartComponent },
+      { path: 'new', component: RecipeEditComponent },
+      { path: ':id', component: RecipeDetailComponent },
+      { path: ':id/edit', component: RecipeEditComponent }
+    ]
   }
-]; 
+];
 
 @NgModule({
   imports: [RouterModule.forChild(recipesRoutes)],

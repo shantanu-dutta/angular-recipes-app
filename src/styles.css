@@ -1,13 +1,15 @@
-.show>.dropdown-menu {
+.show > .dropdown-menu {
   display: block;
 }
 
-.ng-valid[required], .ng-valid.required {
-  border-left: 5px solid #42A948;
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948;
   /* green */
 }
 
-input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid {
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
   border-left: 5px solid #a94442;
   /* red */
   background-color: rgba(150, 0, 0, 0.2);

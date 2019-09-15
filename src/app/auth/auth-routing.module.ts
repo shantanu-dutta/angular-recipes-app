@@ -5,16 +5,12 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 
 const authRoutes: Routes = [
-  { path: 'signin', component: SigninComponent, },
-  { path: 'signup', component: SignupComponent, }
+  { path: 'signin', component: SigninComponent },
+  { path: 'signup', component: SignupComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(authRoutes),
-  ],
-  exports: [
-    RouterModule,   
-  ]
+  imports: [RouterModule.forChild(authRoutes)],
+  exports: [RouterModule]
 })
-export class AuthRoutingmodule { }
+export class AuthRoutingmodule {}

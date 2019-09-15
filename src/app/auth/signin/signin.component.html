@@ -3,8 +3,17 @@
     <form (ngSubmit)="onSignin(f)" #f="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" ngModel required
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #email="ngModel">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="Enter Email"
+          ngModel
+          required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          #email="ngModel"
+        />
         <small class="form-text text-muted" *ngIf="email.touched && email.invalid">
           <ng-container *ngIf="email.errors.required">This field is required</ng-container>
           <ng-container *ngIf="email.errors.pattern">Please enter a valid email</ng-container>
@@ -12,8 +21,17 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" ngModel
-          required minlength="6" #password="ngModel">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          placeholder="Password"
+          ngModel
+          required
+          minlength="6"
+          #password="ngModel"
+        />
         <small class="form-text text-muted" *ngIf="password.touched && password.invalid">
           <ng-container *ngIf="password.errors.required">This field is required</ng-container>
           <ng-container *ngIf="password.errors.minlength">Password must be atleast 6 characters long</ng-container>

@@ -11,10 +11,9 @@ import { AuthService } from '../auth.service';
 export class SignupComponent implements OnInit {
   @ViewChild('f', { static: false }) form: NgForm;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSignup(form: NgForm) {
     const email = form.value.email;

@@ -10,30 +10,27 @@ import { DataStorageService } from '../../shared/data-storage.service';
   templateUrl: './header.component.html',
   animations: [
     trigger('collapse', [
-      state('open', style({ height: 0, visibility: 'hidden'})),
-      state('closed', style({ height: '*', visibility: 'visible'})),
+      state('open', style({ height: 0, visibility: 'hidden' })),
+      state('closed', style({ height: '*', visibility: 'visible' })),
       transition('closed => open', animate('400ms cubic-bezier(0.4,0.0,0.2,1)')),
       transition('open => closed', animate('400ms cubic-bezier(0.4,0.0,0.2,1)'))
     ])
   ]
 })
 export class HeaderComponent {
-  collapse: string = 'closed';
+  collapse = 'closed';
   constructor(
     public authService: AuthService,
     private dataStorageService: DataStorageService,
     private router: Router
-  ) { }
+  ) {}
 
   toggleCollapse() {
     this.collapse = this.collapse === 'open' ? 'closed' : 'open';
   }
 
   onSaveData() {
-    this.dataStorageService.StoreRecipes().subscribe(
-      console.log,
-      console.log
-    );
+    this.dataStorageService.StoreRecipes().subscribe(console.log, console.log);
   }
 
   onFetchData() {

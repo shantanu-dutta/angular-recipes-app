@@ -14,47 +14,41 @@ export class RecipeService {
       'Tasty Schnitzel',
       'Super tasty Schnitzel - just awesome!',
       'http://burgerscoici.ro/wp-content/uploads/2018/10/sardina2_640-x-640-px.jpg',
-      [
-        new Ingredient('Meat', 1),
-        new Ingredient('French Fries', 20),
-      ]
+      [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
     ),
     new Recipe(
       'Big Fat Burger',
       'What else you need to say?',
       'http://burgerscoici.ro/wp-content/uploads/2018/10/sardina2_640-x-640-px.jpg',
-      [
-        new Ingredient('Buns', 2),
-        new Ingredient('Meat', 1),
-      ]
-    ),
+      [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
+    )
   ];
 
-  constructor(private slService: ShoppingListService) { }
-  
+  constructor(private slService: ShoppingListService) {}
+
   AddIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.AddIngredients(ingredients);
   }
-  
+
   AddRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }
-  
+
   DeleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
-  
+
   GetRecipes = (): Recipe[] => this.recipes.slice();
-  
+
   GetRecipe = (index: number): Recipe => Object.assign({}, this.recipes[index]);
 
   SetRecipes = (recipes: Recipe[]) => {
     this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
-  }
-  
+  };
+
   RecipesChanged = (): Observable<Recipe[]> => this.recipesChanged.asObservable();
 
   UpdateRecipe(index: number, newRecipe: Recipe) {

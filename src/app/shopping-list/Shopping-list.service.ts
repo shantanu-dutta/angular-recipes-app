@@ -4,17 +4,20 @@ import { Ingredient } from '../shared/ingredient.model';
 
 export class ShoppingListService {
   private ingredientsChanged = new Subject<Ingredient[]>();
-  private ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
-  ];
+  private ingredients: Ingredient[] = [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)];
   private startedEditing = new Subject<number>();
 
-  GetIngredients(): Ingredient[] { return this.ingredients.slice(); }
+  GetIngredients(): Ingredient[] {
+    return this.ingredients.slice();
+  }
 
-  GetIngredient(index: number): Ingredient { return this.ingredients[index]; }
+  GetIngredient(index: number): Ingredient {
+    return this.ingredients[index];
+  }
 
-  IngredientsChanged(): Observable<Ingredient[]> { return this.ingredientsChanged.asObservable(); }
+  IngredientsChanged(): Observable<Ingredient[]> {
+    return this.ingredientsChanged.asObservable();
+  }
 
   AddIngredient(ingredient: Ingredient): void {
     this.ingredients.push(ingredient);
@@ -36,7 +39,11 @@ export class ShoppingListService {
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 
-  GetEditing(): Observable<number> { return this.startedEditing.asObservable(); }
+  GetEditing(): Observable<number> {
+    return this.startedEditing.asObservable();
+  }
 
-  SetEditing(index: number): void { this.startedEditing.next(index); }
+  SetEditing(index: number): void {
+    this.startedEditing.next(index);
+  }
 }
