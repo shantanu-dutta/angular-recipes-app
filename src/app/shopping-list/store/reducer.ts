@@ -46,7 +46,8 @@ const shoppingListReducer = createReducer(
   on(ShoppingListActions.startEdit, (state, { index }) => {
     const editedIngredient = { ...state.ingredients[index] };
     return { ...state, editedIngredientIndex: index, editedIngredient };
-  })
+  }),
+  on(ShoppingListActions.stopEdit, state => ({ ...state, editedIngredientIndex: -1, editedIngredient: null }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

@@ -16,3 +16,4 @@ export const updateIngredient = createAction(
 );
 export const deleteIngredient = createAction('[Shopping List Service] Delete Ingredient');
 export const startEdit = createAction('[Shopping List Service] Start Edit', props<{ index: number }>());
+export const stopEdit = createAction('[Shopping List Service] Stop Edit');

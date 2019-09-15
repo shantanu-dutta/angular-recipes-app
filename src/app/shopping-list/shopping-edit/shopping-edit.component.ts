@@ -41,6 +41,7 @@ export class ShoppingEditComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.slService.StopEdit();
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -64,6 +65,6 @@ export class ShoppingEditComponent implements AfterViewInit, OnDestroy {
   onClear() {
     this.resetForm();
     this.editMode = false;
-    this.slService.StartEdit(-1);
+    this.slService.StopEdit();
   }
 }

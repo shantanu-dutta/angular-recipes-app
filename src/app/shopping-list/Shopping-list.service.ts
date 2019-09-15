@@ -50,4 +50,8 @@ export class ShoppingListService {
   StartEdit(index: number) {
     this.store.dispatch(ShoppingListActions.startEdit({ index }));
   }
+
+  StopEdit() {
+    this.store.dispatch(ShoppingListActions.stopEdit());
+  }
 }

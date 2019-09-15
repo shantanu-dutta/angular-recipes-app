@@ -32,8 +32,8 @@
             #amount="ngModel"
           />
           <small id="amountHelpText" class="form-text text-muted" *ngIf="amount.touched && amount.invalid">
-            <ng-container *ngIf="amount.errors.required">This field is required</ng-container>
-            <ng-container *ngIf="amount.errors.pattern">Please enter a positive whole number</ng-container>
+            <ng-container *ngIf="amount.hasError('required')">This field is required</ng-container>
+            <ng-container *ngIf="amount.hasError('pattern')">Please enter a positive whole number</ng-container>
           </small>
         </div>
       </div>
