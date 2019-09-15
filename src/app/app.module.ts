@@ -10,7 +10,7 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 import { AppComponent } from './app.component';
 
-import * as fromShoppingList from './shopping-list/store/shopping-list.reducers';
+import { reducers } from './store/app.reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +21,7 @@ import * as fromShoppingList from './shopping-list/store/shopping-list.reducers'
     CoreModule,
     HttpClientModule,
     ShoppingListModule,
-    StoreModule.forRoot({ shoppingList: fromShoppingList.reducer })
+    StoreModule.forRoot(reducers)
   ],
 
   bootstrap: [AppComponent]
