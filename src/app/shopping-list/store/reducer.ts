@@ -3,12 +3,20 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './actions';
 
+export interface AppState {
+  shoppingList: State;
+}
+
 export interface State {
   ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
 }
 
 export const initialState: State = {
-  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatos', 10)]
+  ingredients: [new Ingredient('Apples', 5), new Ingredient('Tomatos', 10)],
+  editedIngredient: null,
+  editedIngredientIndex: -1
 };
 
 const shoppingListReducer = createReducer(
@@ -21,17 +29,23 @@ const shoppingListReducer = createReducer(
     ...state,
     ingredients: [...state.ingredients, ...ingredients]
   })),
-  on(ShoppingListActions.updateIngredient, (state, { index, newIngredient }) => {
+  on(ShoppingListActions.updateIngredient, (state, { newIngredient }) => {
+    const index = state.editedIngredientIndex;
     const ingredient = state.ingredients[index];
     const updatedIngredient = { ...ingredient, ...newIngredient };
     const ingredients = [...state.ingredients];
     ingredients[index] = updatedIngredient;
-    return { ...state, ingredients };
+    return { ...state, ingredients, editedIngredient: null, editedIngredientIndex: -1 };
   }),
-  on(ShoppingListActions.deleteIngredient, (state, { index }) => {
+  on(ShoppingListActions.deleteIngredient, state => {
+    const index = state.editedIngredientIndex;
     const ingredients = [...state.ingredients];
     ingredients.splice(index, 1);
-    return { ...state, ingredients };
+    return { ...state, ingredients, editedIngredient: null, editedIngredientIndex: -1 };
+  }),
+  on(ShoppingListActions.startEdit, (state, { index }) => {
+    const editedIngredient = { ...state.ingredients[index] };
+    return { ...state, editedIngredientIndex: index, editedIngredient };
   })
 );
 

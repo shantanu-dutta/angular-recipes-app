@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { Ingredient } from '../shared/ingredient.model';
 import * as ShoppingListActions from './store/actions';
+import * as fromShoppingList from './store/reducer';
 
 @Injectable()
 export class ShoppingListService {
@@ -12,13 +13,13 @@ export class ShoppingListService {
   private ingredients: Ingredient[] = [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)];
   private startedEditing = new Subject<number>();
 
-  constructor(private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>) {}
+  constructor(private store: Store<fromShoppingList.AppState>) {}
 
   GetIngredient(index: number): Ingredient {
     return this.ingredients[index];
   }
 
-  GetShoppingListState(): Observable<{ ingredients: Ingredient[] }> {
+  GetShoppingListState(): Observable<fromShoppingList.State> {
     return this.store.select('shoppingList');
   }
 
@@ -34,19 +35,19 @@ export class ShoppingListService {
     this.store.dispatch(ShoppingListActions.addIngredients({ ingredients }));
   }
 
-  UpdateIngredient(index: number, newIngredient: Ingredient) {
-    this.store.dispatch(ShoppingListActions.updateIngredient({ index, newIngredient }));
+  UpdateIngredient(newIngredient: Ingredient) {
+    this.store.dispatch(ShoppingListActions.updateIngredient({ newIngredient }));
   }
 
-  DeleteIngredient(index: number) {
-    this.store.dispatch(ShoppingListActions.deleteIngredient({ index }));
+  DeleteIngredient() {
+    this.store.dispatch(ShoppingListActions.deleteIngredient());
   }
 
   GetEditing(): Observable<number> {
     return this.startedEditing.asObservable();
   }
 
-  SetEditing(index: number) {
-    this.startedEditing.next(index);
+  StartEdit(index: number) {
+    this.store.dispatch(ShoppingListActions.startEdit({ index }));
   }
 }

@@ -3,9 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Ingredient } from '../shared/ingredient.model';
-
 import { ShoppingListService } from './Shopping-list.service';
+import * as fromShoppingList from './store/reducer';
 
 @Component({
   selector: 'app-shopping-list',
@@ -14,17 +13,12 @@ import { ShoppingListService } from './Shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-  selectedIndex: number;
-  shoppingListState$: Observable<{ ingredients: Ingredient[] }>;
+  shoppingListState$: Observable<fromShoppingList.State>;
 
   constructor(private slService: ShoppingListService) {}
 
   ngOnInit() {
     this.getIngredients();
-    this.slService
-      .GetEditing()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((index: number) => (this.selectedIndex = index));
   }
 
   ngOnDestroy() {
@@ -37,6 +31,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   onEditItem(index: number) {
-    this.slService.SetEditing(index);
+    this.slService.StartEdit(index);
   }
 }

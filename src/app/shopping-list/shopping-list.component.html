@@ -3,14 +3,16 @@
     <app-shopping-edit></app-shopping-edit>
     <hr />
     <div class="list-group">
-      <a
-        class="list-group-item list-group-item-action"
-        style="cursor: pointer;"
-        [ngClass]="{ active: selectedIndex === i }"
-        *ngFor="let ingredient of (shoppingListState$ | async).ingredients; index as i"
-        (click)="onEditItem(i)"
-        >{{ ingredient.name }} ({{ ingredient.amount }})</a
-      >
+      <ng-container *ngIf="shoppingListState$ | async as shoppingListState">
+        <a
+          class="list-group-item list-group-item-action"
+          style="cursor: pointer;"
+          [ngClass]="{ active: shoppingListState.editedIngredientindex === i }"
+          *ngFor="let ingredient of shoppingListState.ingredients; index as i"
+          (click)="onEditItem(i)"
+          >{{ ingredient.name }} ({{ ingredient.amount }})</a
+        >
+      </ng-container>
     </div>
   </div>
 </div>
