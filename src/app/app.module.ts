@@ -10,7 +10,7 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 import { AppComponent } from './app.component';
 
-import * as fromShoppingList from './shopping-list/store/reducer';
+import * as fromShoppingList from './shopping-list/store/shopping-list.reducers';
 
 @NgModule({
   declarations: [AppComponent],

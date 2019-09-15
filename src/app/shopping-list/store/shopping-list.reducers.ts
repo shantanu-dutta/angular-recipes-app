@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { Ingredient } from '../../shared/ingredient.model';
-import * as ShoppingListActions from './actions';
+import * as ShoppingListActions from './shopping-list.actions';
 
 export interface AppState {
   shoppingList: State;

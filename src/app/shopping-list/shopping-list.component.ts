@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ShoppingListService } from './Shopping-list.service';
-import * as fromShoppingList from './store/reducer';
+import * as fromShoppingList from './store/shopping-list.reducers';
 
 @Component({
   selector: 'app-shopping-list',
