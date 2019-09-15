@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -18,10 +17,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   selectedIndex: number;
   shoppingListState$: Observable<{ ingredients: Ingredient[] }>;
 
-  constructor(
-    private slService: ShoppingListService,
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
-  ) {}
+  constructor(private slService: ShoppingListService) {}
 
   ngOnInit() {
     this.getIngredients();
@@ -37,7 +33,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   private getIngredients() {
-    this.shoppingListState$ = this.store.select('shoppingList');
+    this.shoppingListState$ = this.slService.GetShoppingListState();
   }
 
   onEditItem(index: number) {
