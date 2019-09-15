@@ -7,7 +7,7 @@
         class="list-group-item list-group-item-action"
         style="cursor: pointer;"
         [ngClass]="{ active: selectedIndex === i }"
-        *ngFor="let ingredient of (shoppingListState | async).ingredients; index as i"
+        *ngFor="let ingredient of (shoppingListState$ | async).ingredients; index as i"
         (click)="onEditItem(i)"
         >{{ ingredient.name }} ({{ ingredient.amount }})</a
       >

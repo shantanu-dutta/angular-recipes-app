@@ -16,7 +16,7 @@ import { ShoppingListService } from './Shopping-list.service';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   selectedIndex: number;
-  shoppingListState: Observable<{ ingredients: Ingredient[] }>;
+  shoppingListState$: Observable<{ ingredients: Ingredient[] }>;
 
   constructor(
     private slService: ShoppingListService,
@@ -25,11 +25,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getIngredients();
-    // this.slService.IngredientsChanged().pipe(
-    //   takeUntil(this.destroy$)
-    // ).subscribe(
-    //   (ingredients: Ingredient[]) => (this.ingredients = ingredients)
-    // );
     this.slService
       .GetEditing()
       .pipe(takeUntil(this.destroy$))
@@ -42,7 +37,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   private getIngredients() {
-    this.shoppingListState = this.store.select('shoppingList');
+    this.shoppingListState$ = this.store.select('shoppingList');
   }
 
   onEditItem(index: number) {
