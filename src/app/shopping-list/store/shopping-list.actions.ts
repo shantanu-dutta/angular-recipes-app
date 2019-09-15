@@ -2,18 +2,12 @@ import { createAction, props } from '@ngrx/store';
 
 import { Ingredient } from 'src/app/shared/ingredient.model';
 
-export const addIngredient = createAction(
-  '[Shopping List Service] Add Ingredient',
-  props<{ ingredient: Ingredient }>()
-);
-export const addIngredients = createAction(
-  '[Shopping List Service] Add Ingredients',
-  props<{ ingredients: Ingredient[] }>()
-);
+export const addIngredient = createAction('[Shopping List] Add Ingredient', props<{ ingredient: Ingredient }>());
+export const addIngredients = createAction('[Shopping List] Add Ingredients', props<{ ingredients: Ingredient[] }>());
 export const updateIngredient = createAction(
-  '[Shopping List Service] Update Ingredient',
+  '[Shopping List] Update Ingredient',
   props<{ newIngredient: Ingredient }>()
 );
-export const deleteIngredient = createAction('[Shopping List Service] Delete Ingredient');
-export const startEdit = createAction('[Shopping List Service] Start Edit', props<{ index: number }>());
-export const stopEdit = createAction('[Shopping List Service] Stop Edit');
+export const deleteIngredient = createAction('[Shopping List] Delete Ingredient');
+export const startEdit = createAction('[Shopping List] Start Edit', props<{ index: number }>());
+export const stopEdit = createAction('[Shopping List] Stop Edit');
