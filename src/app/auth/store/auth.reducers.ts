@@ -4,18 +4,18 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
   token: string;
-  autheticated: boolean;
+  authenticated: boolean;
 }
 
 const initialState: State = {
   token: null,
-  autheticated: false
+  authenticated: false
 };
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.signup, AuthActions.signin, state => ({ ...state, autheticated: true })),
-  on(AuthActions.logout, state => ({ ...state, token: null, autheticated: false }))
+  on(AuthActions.signup, AuthActions.signin, state => ({ ...state, authenticated: true })),
+  on(AuthActions.logout, state => ({ ...state, token: null, authenticated: false }))
 );
 
 export function reducer(state: State | undefined, action: Action) {
