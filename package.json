@@ -10,7 +10,7 @@
     "e2e": "ng e2e"
   },
   "husky": {
-    "hooks":{
+    "hooks": {
       "pre-commit": "pretty-quick --staged && ng lint"
     }
   },
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
+    "@ngrx/effects": "^8.0.0",
     "@ngrx/store": "^8.0.0",
     "bootstrap": "^4.3.1",
     "firebase": "^6.4.0",
