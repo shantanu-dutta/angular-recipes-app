@@ -20,7 +20,7 @@ export class AuthService {
         firebase
           .auth()
           .currentUser.getIdToken()
-          .then((token: string) => this.store.dispatch(AuthActions.setToken({ token })));
+          .then((token: string) => this.store.dispatch(AuthActions.getTokenSuccess({ token })));
       })
       .catch(console.log);
   }
@@ -35,7 +35,7 @@ export class AuthService {
         firebase
           .auth()
           .currentUser.getIdToken()
-          .then((token: string) => this.store.dispatch(AuthActions.setToken({ token })));
+          .then((token: string) => this.store.dispatch(AuthActions.getTokenSuccess({ token })));
       })
       .catch(console.log);
   }
