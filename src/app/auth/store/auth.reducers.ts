@@ -17,10 +17,11 @@ const initialState: State = {
 const authReducer = createReducer(
   initialState,
   on(AuthActions.signupSuccess, AuthActions.signin, state => ({ ...state, authenticated: true })),
-  on(AuthActions.getTokenSuccess, (state, { token }) => ({ ...state, token, authenticated: true })),
-  on(AuthActions.logout, state => ({ ...state, token: null, authenticated: false })),
   on(AuthActions.signupFailure, (state, { error }) => ({ ...state, token: null, authenticated: false, error })),
-  on(AuthActions.getTokenFailure, (state, { error }) => ({ ...state, token: null, authenticated: false, error }))
+  on(AuthActions.signinFailure, (state, { error }) => ({ ...state, token: null, authenticated: false, error })),
+  on(AuthActions.getTokenSuccess, (state, { token }) => ({ ...state, token, authenticated: true })),
+  on(AuthActions.getTokenFailure, (state, { error }) => ({ ...state, token: null, authenticated: false, error })),
+  on(AuthActions.logout, state => ({ ...state, token: null, authenticated: false }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

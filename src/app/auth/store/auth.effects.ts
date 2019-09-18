@@ -16,12 +16,24 @@ export class AuthEffects {
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.signup),
-      switchMap(action => {
-        return from(firebase.auth().createUserWithEmailAndPassword(action.username, action.password)).pipe(
+      switchMap(action =>
+        from(firebase.auth().createUserWithEmailAndPassword(action.email, action.password)).pipe(
           switchMap(_ => [AuthActions.signupSuccess, AuthActions.getToken]),
           catchError((error: HttpErrorResponse) => of(AuthActions.signupFailure({ error: error.message })))
-        );
-      })
+        )
+      )
+    )
+  );
+
+  signin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.signin),
+      switchMap(action =>
+        from(firebase.auth().signInWithEmailAndPassword(action.email, action.password)).pipe(
+          switchMap(_ => [AuthActions.signinSuccess, AuthActions.getToken]),
+          catchError((error: HttpErrorResponse) => of(AuthActions.signinFailure({ error: error.message })))
+        )
+      )
     )
   );
 
