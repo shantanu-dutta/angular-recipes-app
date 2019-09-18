@@ -14,7 +14,7 @@ const initialState: State = {
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.signup, AuthActions.signin, state => ({ ...state, authenticated: true })),
+  on(AuthActions.signupSuccess, AuthActions.signin, state => ({ ...state, authenticated: true })),
   on(AuthActions.setToken, (state, { token }) => ({ ...state, token, authenticated: true })),
   on(AuthActions.logout, state => ({ ...state, token: null, authenticated: false }))
 );
