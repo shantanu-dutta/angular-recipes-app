@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import { HttpErrorResponse } from '@angular/common/http';
 
-import { from, of } from 'rxjs';
+import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
 import * as AuthActions from './auth.actions';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.signup),
       switchMap(action =>
-        from(firebase.auth().createUserWithEmailAndPassword(action.email, action.password)).pipe(
+        this.authService.signupUser(action.email, action.password).pipe(
           switchMap(_ => [AuthActions.signupSuccess, AuthActions.getToken]),
           catchError((error: HttpErrorResponse) => of(AuthActions.signupFailure({ error: error.message })))
         )
@@ -29,7 +28,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.signin),
       switchMap(action =>
-        from(firebase.auth().signInWithEmailAndPassword(action.email, action.password)).pipe(
+        this.authService.signinUser(action.email, action.password).pipe(
           switchMap(_ => [AuthActions.signinSuccess, AuthActions.getToken]),
           catchError((error: HttpErrorResponse) => of(AuthActions.signinFailure({ error: error.message })))
         )
@@ -41,7 +40,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.getToken),
       switchMap(_ =>
-        from(firebase.auth().currentUser.getIdToken()).pipe(
+        this.authService.getToken().pipe(
           map((token: string) => AuthActions.getTokenSuccess({ token })),
           catchError((error: HttpErrorResponse) => of(AuthActions.getTokenFailure({ error: error.message })))
         )
