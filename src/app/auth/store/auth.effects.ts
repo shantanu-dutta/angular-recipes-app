@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 import * as AuthActions from './auth.actions';
 import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
-
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.signup),
       switchMap(action =>
         this.authService.signupUser(action.email, action.password).pipe(
-          switchMap(_ => [AuthActions.signupSuccess, AuthActions.getToken]),
-          catchError((error: HttpErrorResponse) => of(AuthActions.signupFailure({ error: error.message })))
+          map(_ => AuthActions.getToken),
+          catchError((error: HttpErrorResponse) => of(AuthActions.authFailure({ error: error.message })))
         )
       )
     )
@@ -29,8 +28,8 @@ export class AuthEffects {
       ofType(AuthActions.signin),
       switchMap(action =>
         this.authService.signinUser(action.email, action.password).pipe(
-          switchMap(_ => [AuthActions.signinSuccess, AuthActions.getToken]),
-          catchError((error: HttpErrorResponse) => of(AuthActions.signinFailure({ error: error.message })))
+          map(_ => AuthActions.getToken),
+          catchError((error: HttpErrorResponse) => of(AuthActions.authFailure({ error: error.message })))
         )
       )
     )
@@ -41,10 +40,21 @@ export class AuthEffects {
       ofType(AuthActions.getToken),
       switchMap(_ =>
         this.authService.getToken().pipe(
-          map((token: string) => AuthActions.getTokenSuccess({ token })),
-          catchError((error: HttpErrorResponse) => of(AuthActions.getTokenFailure({ error: error.message })))
+          map((token: string) => AuthActions.authSuccess({ token })),
+          catchError((error: HttpErrorResponse) => of(AuthActions.authFailure({ error: error.message })))
         )
       )
     )
   );
+
+  authSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.authSuccess),
+        tap(() => this.router.navigate(['/']))
+      ),
+    { dispatch: false }
+  );
+
+  constructor(private actions$: Actions, private authService: AuthService, private router: Router) {}
 }
