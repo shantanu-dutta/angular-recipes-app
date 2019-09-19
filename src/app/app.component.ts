@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import * as firebase from 'firebase/app';
 
 import { Observable, merge } from 'rxjs';
@@ -30,7 +30,9 @@ export class AppComponent implements OnInit {
       mapTo(true)
     );
     const navigationEnd$ = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
+      filter(
+        event => event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError
+      ),
       mapTo(false)
     );
     this.loading$ = merge(navigationStart$, navigationEnd$);
