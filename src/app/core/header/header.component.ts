@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Store } from '@ngrx/store';
 
@@ -26,11 +25,7 @@ export class HeaderComponent implements OnInit {
   collapse = 'closed';
   authState$: Observable<fromAuth.State>;
 
-  constructor(
-    private dataStorageService: DataStorageService,
-    private router: Router,
-    private store: Store<fromApp.AppState>
-  ) {}
+  constructor(private dataStorageService: DataStorageService, private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.authState$ = this.store.select('auth');
@@ -50,6 +45,5 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.store.dispatch(AuthActions.logout);
-    this.router.navigate(['/signin']);
   }
 }
