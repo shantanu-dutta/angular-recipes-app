@@ -16,7 +16,7 @@ export class AuthEffects {
       ofType(AuthActions.signup),
       switchMap(action =>
         this.authService.signupUser(action.email, action.password).pipe(
-          map(_ => AuthActions.getToken),
+          map(_ => AuthActions.getToken()),
           catchError((error: HttpErrorResponse) => of(AuthActions.authFailure({ error: error.message })))
         )
       )
@@ -28,7 +28,7 @@ export class AuthEffects {
       ofType(AuthActions.signin),
       switchMap(action =>
         this.authService.signinUser(action.email, action.password).pipe(
-          map(_ => AuthActions.getToken),
+          map(_ => AuthActions.getToken()),
           catchError((error: HttpErrorResponse) => of(AuthActions.authFailure({ error: error.message })))
         )
       )
