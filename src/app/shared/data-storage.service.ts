@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
+import { of } from 'rxjs';
 
 @Injectable()
 export class DataStorageService {
@@ -13,19 +14,16 @@ export class DataStorageService {
   constructor(private httpClient: HttpClient, private recipeService: RecipeService) {}
 
   GetRecipes() {
-    this.httpClient
-      .get<Recipe[]>(`${this.storeUrl}/recipes.json`)
-      .pipe(
-        map(recipes => {
-          for (const recipe of recipes) {
-            if (!recipe['ingredients']) {
-              recipe['ingredients'] = [];
-            }
+    return this.httpClient.get<Recipe[]>(`${this.storeUrl}/recipes.json`).pipe(
+      map(recipes => {
+        for (const recipe of recipes) {
+          if (!recipe['ingredients']) {
+            recipe['ingredients'] = [];
           }
-          return recipes;
-        })
-      )
-      .subscribe(this.recipeService.SetRecipes, console.log);
+        }
+        return recipes;
+      })
+    );
   }
 
   StoreRecipes() {

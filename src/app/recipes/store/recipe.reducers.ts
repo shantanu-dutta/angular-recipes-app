@@ -5,12 +5,20 @@ import * as RecipeActions from './recipe.actions';
 
 export const recipesFeatureKey = 'recipes';
 
+export interface FeatureState {
+  recipes: State;
+}
+
 export interface State {
   recipes: Recipe[];
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: State = {
-  recipes: []
+  recipes: [],
+  loading: true,
+  error: null
 };
 
 const recipesReducer = createReducer(
@@ -31,7 +39,10 @@ const recipesReducer = createReducer(
     const newRecipes = oldRecipes.splice(index, 1);
     return { ...state, recipes: newRecipes };
   }),
-  on(RecipeActions.setRecipes, (state, { recipes }) => ({ ...state, recipes: [...recipes] }))
+  on(RecipeActions.setRecipes, (state, { recipes }) => ({ ...state, recipes: [...recipes] })),
+  on(RecipeActions.fetchRecipes, state => ({ ...state, loading: true, error: null })),
+  on(RecipeActions.fetchRecipesSuccess, (state, { recipes }) => ({ ...state, recipes: [...recipes], loading: false })),
+  on(RecipeActions.fetchRecipesFailure, (state, { error }) => ({ ...state, loading: false, error }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

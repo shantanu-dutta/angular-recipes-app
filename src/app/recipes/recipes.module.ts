@@ -13,6 +13,8 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RecipesComponent } from './recipes.component';
 import { recipesFeatureKey, reducer } from './store/recipe.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { RecipeEffects } from './store/recipe.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { recipesFeatureKey, reducer } from './store/recipe.reducers';
     ReactiveFormsModule,
     RecipesRoutingModule,
     SharedModule,
-    StoreModule.forFeature(recipesFeatureKey, reducer)
+    StoreModule.forFeature(recipesFeatureKey, reducer),
+    EffectsModule.forFeature([RecipeEffects])
   ]
 })
 export class RecipesModule {}
