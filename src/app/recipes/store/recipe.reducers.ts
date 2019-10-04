@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { Recipe } from '../recipe.model';
 import * as RecipeActions from './recipe.actions';
@@ -40,7 +40,6 @@ const recipesReducer = createReducer(
     const newRecipes = oldRecipes.splice(index, 1);
     return { ...state, recipes: newRecipes };
   }),
-  on(RecipeActions.setRecipes, (state, { recipes }) => ({ ...state, recipes: [...recipes] })),
   on(RecipeActions.fetchRecipes, state => ({ ...state, loading: true, error: null })),
   on(RecipeActions.fetchRecipesSuccess, (state, { recipes }) => ({ ...state, recipes: [...recipes], loading: false })),
   on(RecipeActions.fetchRecipesFailure, (state, { error }) => ({ ...state, loading: false, error }))
@@ -49,3 +48,9 @@ const recipesReducer = createReducer(
 export function reducer(state: State | undefined, action: Action) {
   return recipesReducer(state, action);
 }
+
+export const selectRecipeState = createFeatureSelector<State>(recipesFeatureKey);
+export const selectRecipes = createSelector(
+  selectRecipeState,
+  (state: State) => state.recipes
+);

@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
-import { of } from 'rxjs';
 
 @Injectable()
 export class DataStorageService {
   private storeUrl = 'https://ng-recipe-book-e6186.firebaseio.com';
 
-  constructor(private httpClient: HttpClient, private recipeService: RecipeService) {}
+  constructor(private httpClient: HttpClient) {}
 
   GetRecipes() {
     return this.httpClient.get<Recipe[]>(`${this.storeUrl}/recipes.json`).pipe(
@@ -26,7 +24,7 @@ export class DataStorageService {
     );
   }
 
-  StoreRecipes() {
-    return this.httpClient.put<Recipe[]>(`${this.storeUrl}/recipes.json`, this.recipeService.GetRecipes());
+  StoreRecipes(recipes: Recipe[]) {
+    return this.httpClient.put<Recipe[]>(`${this.storeUrl}/recipes.json`, recipes);
   }
 }
