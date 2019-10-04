@@ -2,10 +2,11 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import { Recipe } from '../recipe.model';
 import * as RecipeActions from './recipe.actions';
+import * as fromApp from '../../store/app.reducers';
 
 export const recipesFeatureKey = 'recipes';
 
-export interface FeatureState {
+export interface FeatureState extends fromApp.AppState {
   recipes: State;
 }
 
