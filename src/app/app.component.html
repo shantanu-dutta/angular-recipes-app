@@ -1,3 +1,13 @@
+<div class="progress" style="height:5px;" *ngIf="this.loading$ | async">
+  <div
+    class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+    role="progressbar"
+    aria-valuenow="75"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    style="width: 100%"
+  ></div>
+</div>
 <app-header></app-header>
 <div class="container pt-4">
   <div class="row">

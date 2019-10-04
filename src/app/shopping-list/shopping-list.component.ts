@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { ShoppingListService } from './Shopping-list.service';
 import * as fromShoppingList from './store/shopping-list.reducers';

@@ -5,30 +5,32 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse show" [@collapse]="collapse">
-    <ul class="navbar-nav mr-auto" *ngIf="authService.isAuthenticated()">
-      <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/recipes">Recipes</a></li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/shopping-list">Shopping List</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <ng-template [ngIf]="!authService.isAuthenticated()">
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/signup">Register</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/signin">Login</a></li>
-      </ng-template>
-      <ng-template [ngIf]="authService.isAuthenticated()">
-        <li class="nav-item"><a class="nav-link" style="cursor:pointer" (click)="onLogout()">Logout</a></li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" role="button" style="cursor: pointer;">
-            Manage <span class="caret"></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save Data</a>
-            <a class="dropdown-item" style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a>
-          </div>
+  <ng-container *ngIf="authState$ | async as authState">
+    <div class="collapse navbar-collapse show" [@collapse]="collapse">
+      <ul class="navbar-nav mr-auto" *ngIf="authState.authenticated">
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/recipes">Recipes</a></li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/shopping-list">Shopping List</a>
         </li>
-      </ng-template>
-    </ul>
-  </div>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <ng-template [ngIf]="!authState.authenticated">
+          <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/signup">Register</a></li>
+          <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/signin">Login</a></li>
+        </ng-template>
+        <ng-template [ngIf]="authState.authenticated">
+          <li class="nav-item"><a class="nav-link" style="cursor:pointer" (click)="onLogout()">Logout</a></li>
+          <li class="nav-item dropdown" appDropdown>
+            <a class="nav-link dropdown-toggle" role="button" style="cursor: pointer;">
+              Manage <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save Data</a>
+              <a class="dropdown-item" style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a>
+            </div>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </ng-container>
 </nav>
